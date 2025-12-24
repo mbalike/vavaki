@@ -61,6 +61,20 @@ body.nav-open {
 	padding-top: 92px;
 }
 
+.nav-brand {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	margin-bottom: 22px;
+}
+
+.nav-brand img {
+	height: 32px;
+	width: auto;
+	display: block;
+	filter: brightness(0) saturate(100%);
+}
+
 .nav-top-actions {
 	position: absolute;
 	top: 22px;

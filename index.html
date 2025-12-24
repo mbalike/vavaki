@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foster + Partners</title>
+    <title>Vavaki - Home</title>
     <script>
         document.documentElement.classList.add('js');
     </script>
@@ -419,6 +419,22 @@
                 --page-pad: 24px;
             }
 
+            .hero {
+                height: 100vh;
+            }
+
+            @supports (height: 100svh) {
+                .hero {
+                    height: 100svh;
+                }
+            }
+
+            @supports (height: 100dvh) {
+                .hero {
+                    height: 100dvh;
+                }
+            }
+
             .studio-layout {
                 grid-template-columns: 1fr;
             }
@@ -479,7 +495,7 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="logo">Foster + Partners</div>
+        <div class="logo"><img src="assets/img/logo.png" alt="Vavaki"></div>
         <div class="header-icons">
             <button class="icon-btn icon-btn--search" aria-label="Search">
                 <i class="bi bi-search" aria-hidden="true"></i>
@@ -505,6 +521,9 @@
             <div class="nav-image" id="navPreview" aria-hidden="true"></div>
 
             <div class="nav-panel nav-panel--center">
+                <a class="nav-brand" href="#" aria-label="Home">
+                    <img src="assets/img/logo.png" alt="Vavaki">
+                </a>
                 <div class="nav-heading">Menu</div>
                 <ul class="nav-list" id="navList"></ul>
             </div>
@@ -525,7 +544,7 @@
         </div>
 
         <div class="nav-legal">
-            <div><a href="#">Subscribe to Foster + Partners</a></div>
+            <div><a href="#">Subscribe to Vavaki</a></div>
             <div><a href="#">Legal and policies</a></div>
         </div>
     </div>
@@ -561,12 +580,12 @@
 
             <div class="studio-quote studio-span-4 reveal-on-scroll" aria-label="Studio quote">
                 <p class="quote-text">“We are a global studio for sustainable architecture, urbanism, engineering and design, founded by Norman Foster in 1967.”</p>
-                <p class="quote-author">Foster + Partners</p>
+                <p class="quote-author">Vavaki</p>
             </div>
 
             <div class="studio-tile row studio-span-4 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80" alt="Life at Foster + Partners">
-                <div class="card-label">Life at Foster + Partners</div>
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80" alt="Life at Vavaki">
+                <div class="card-label">Life at Vavaki</div>
             </div>
             <div class="studio-tile row studio-span-4 reveal-on-scroll">
                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80" alt="Vacancies">
@@ -599,7 +618,7 @@
             </div>
 
             <div class="newsletter reveal-on-scroll">
-                <h3>Stay up to date with the latest Foster + Partners projects and news.</h3>
+                <h3>Stay up to date with the latest Vavaki projects and news.</h3>
                 <form class="newsletter-form">
                     <input type="email" placeholder="Email address..." aria-label="Email address">
                     <button type="submit">Subscribe</button>
@@ -617,7 +636,7 @@
 
             <div class="news-quote reveal-on-scroll">
                 <p>“Sustainability has been a central theme of our work for more than five decades. We work closely with our clients to develop bespoke design solutions that are optimised for their operations and the planet.”</p>
-                <p class="quote-author">Foster + Partners</p>
+                <p class="quote-author">Vavaki</p>
             </div>
         </div>
     </section>
@@ -625,7 +644,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-top reveal-on-scroll">
-            <div class="logo">Foster + Partners</div>
+            <div class="logo"><img src="assets/img/logo.png" alt="Vavaki"></div>
 
             <div class="footer-actions">
                 <div class="footer-social" aria-label="Social links">
@@ -653,7 +672,7 @@
                 <a href="#contact">Contact</a>
             </nav>
 
-            <div class="footer-legal">Legal and policies&nbsp;&nbsp;© 2025 Foster + Partners. All Rights Reserved.</div>
+            <div class="footer-legal">Legal and policies&nbsp;&nbsp;© 2025 Vavaki. All Rights Reserved.</div>
         </div>
     </footer>
 
@@ -857,7 +876,7 @@
             {
                 imageSrc: 'https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?w=2400&q=80',
                 label: 'News',
-                title: 'Foster + Partners reveals new cultural landmark',
+                title: 'Vavaki reveals new cultural landmark',
                 durationMs: 9000
             },
             {
