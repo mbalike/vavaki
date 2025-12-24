@@ -138,6 +138,13 @@
             gap: 12px;
             margin-top: 18px;
             flex-wrap: wrap;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .hero-cta {
@@ -654,6 +661,18 @@
 
             .hero-content {
                 bottom: 28px;
+            }
+
+            .hero-ctas {
+                margin-top: 16px;
+                width: min(380px, 100%);
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 18px;
+            }
+
+            .hero-cta {
+                width: 100%;
             }
 
             .hero-headline {
