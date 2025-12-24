@@ -44,6 +44,18 @@ header.is-hidden {
     cursor: pointer;
     padding: 8px;
     font-size: 20px;
+	border-radius: 999px;
+	transition: background 0.22s ease, transform 0.22s ease, color 0.22s ease;
+}
+
+.icon-btn:hover {
+	background: rgba(34, 200, 136, 0.18);
+	transform: translateY(-1px);
+}
+
+.icon-btn:focus-visible {
+	outline: 2px solid rgba(34, 200, 136, 0.8);
+	outline-offset: 3px;
 }
 
 .icon-btn--search {

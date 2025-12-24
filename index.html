@@ -16,7 +16,12 @@
         :root {
             --page-pad: 48px;
             --hero-image: url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=2400&q=80');
-            --hero-topbar-bg: rgba(0, 0, 0, 0.35);
+            --color-primary: #062723;
+            --color-secondary: #22c888;
+            --surface: rgba(255, 255, 255, 0.06);
+            --surface-2: rgba(255, 255, 255, 0.08);
+            --surface-3: rgba(255, 255, 255, 0.10);
+            --hero-topbar-bg: rgba(6, 39, 35, 0.72);
         }
 
         * {
@@ -27,9 +32,40 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: #000;
+            background: var(--color-primary);
             color: #fff;
             overflow-x: hidden;
+        }
+
+        .content-section {
+            padding: 80px var(--page-pad);
+        }
+
+        .content-body {
+            max-width: 860px;
+            font-size: 16px;
+            line-height: 1.75;
+            opacity: 0.95;
+        }
+
+        .content-body p {
+            margin: 0 0 14px;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0 0;
+            display: grid;
+            gap: 10px;
+            max-width: 860px;
+        }
+
+        .content-list li {
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 12px;
         }
 
         /* Hero Section */
@@ -81,6 +117,55 @@
             z-index: 10;
         }
 
+        .hero-headline {
+            font-size: 44px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            max-width: 860px;
+            line-height: 1.08;
+            margin-bottom: 12px;
+        }
+
+        .hero-subheadline {
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 720px;
+            opacity: 0.92;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(34, 200, 136, 0.55);
+            background: var(--color-secondary);
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+			transition: transform 200ms ease, filter 200ms ease, border-color 200ms ease;
+        }
+
+        .hero-cta:hover {
+			transform: translateY(-1px);
+			filter: brightness(1.05);
+            border-color: rgba(34, 200, 136, 0.75);
+        }
+
+		.hero-cta:focus-visible {
+			outline: 2px solid rgba(34, 200, 136, 0.9);
+			outline-offset: 4px;
+		}
+
         .hero-label {
             font-size: 14px;
             text-transform: uppercase;
@@ -108,13 +193,20 @@
             width: 44px;
             height: 88px;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(34, 200, 136, 0.40);
+            background: rgba(34, 200, 136, 0.12);
             color: #fff;
             display: grid;
             place-items: center;
             cursor: pointer;
+			transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
         }
+
+		.hero-scroll-btn:hover {
+			background: rgba(34, 200, 136, 0.18);
+			border-color: rgba(34, 200, 136, 0.58);
+			transform: translateY(-1px);
+		}
 
         .hero-scroll-icon {
             width: 18px;
@@ -123,7 +215,7 @@
         }
 
         .hero-scroll-btn:focus-visible {
-            outline: 2px solid rgba(255, 255, 255, 0.8);
+            outline: 2px solid rgba(34, 200, 136, 0.9);
             outline-offset: 4px;
         }
 
@@ -157,7 +249,7 @@
             position: absolute;
             inset: 0;
             border-radius: 50%;
-            background: conic-gradient(#fff var(--p, 0turn), rgba(255, 255, 255, 0.25) 0);
+            background: conic-gradient(var(--color-secondary) var(--p, 0turn), rgba(255, 255, 255, 0.25) 0);
             -webkit-mask: radial-gradient(farthest-side, transparent calc(50% - 1px), #000 calc(50% - 1px));
             mask: radial-gradient(farthest-side, transparent calc(50% - 1px), #000 calc(50% - 1px));
         }
@@ -167,7 +259,7 @@
             position: absolute;
             inset: 4px;
             border-radius: 50%;
-            background: #fff;
+            background: var(--color-secondary);
         }
 
         /* Studio Section */
@@ -195,6 +287,9 @@
             overflow: hidden;
             cursor: pointer;
             border-radius: 0;
+            display: block;
+            color: inherit;
+            text-decoration: none;
         }
 
         .studio-tile img {
@@ -218,6 +313,47 @@
 
         .studio-tile:hover img {
             transform: scale(1.05);
+        }
+
+        .projects-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 6px;
+        }
+
+        .projects-card {
+            flex: 0 0 min(460px, 86vw);
+            height: 280px;
+            scroll-snap-align: start;
+        }
+
+        .projects-caption {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            right: 18px;
+            z-index: 2;
+            display: grid;
+            gap: 6px;
+        }
+
+        .projects-caption .title {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .projects-caption .desc {
+            font-size: 13px;
+            line-height: 1.55;
+            opacity: 0.92;
+            max-width: 420px;
+        }
+
+        .section-cta {
+            margin-top: 18px;
         }
 
         .studio-tile.top {
@@ -246,7 +382,7 @@
         }
 
         .studio-quote {
-            background: #2a2a2a;
+            background: var(--surface-2);
             padding: 56px;
             height: var(--studio-top-row-h);
             display: flex;
@@ -299,13 +435,110 @@
         }
 
         .newsletter {
-            background: #2a2a2a;
+            background: var(--surface-2);
             padding: 48px;
             height: var(--news-row-h);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             gap: 26px;
+        }
+
+        .newsletter p {
+            font-size: 14px;
+            line-height: 1.65;
+            opacity: 0.92;
+            max-width: 440px;
+        }
+
+        .newsletter .newsletter-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 18px;
+            border-radius: 999px;
+            background: var(--color-secondary);
+            color: #fff;
+            border: 1px solid rgba(34, 200, 136, 0.55);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            width: fit-content;
+			transition: transform 200ms ease, filter 200ms ease, border-color 200ms ease;
+        }
+
+        .newsletter .newsletter-cta:hover {
+			transform: translateY(-1px);
+			filter: brightness(1.05);
+            border-color: rgba(34, 200, 136, 0.75);
+        }
+
+		.newsletter .newsletter-cta:focus-visible {
+			outline: 2px solid rgba(34, 200, 136, 0.9);
+			outline-offset: 4px;
+		}
+
+        .contact-card {
+            background: var(--surface-2);
+            padding: 56px;
+            max-width: 980px;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+            opacity: 0.95;
+        }
+
+        .contact-details a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            margin-top: 22px;
+            display: grid;
+            gap: 12px;
+            max-width: 620px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 14px 18px;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 14px;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background: rgba(255, 255, 255, 0.10);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 14px 18px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 999px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            width: fit-content;
+        }
+
+        .contact-form button:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.16);
         }
 
         .newsletter h3 {
@@ -379,7 +612,7 @@
 
         .news-quote {
             height: var(--news-row-h);
-            background: #2a2a2a;
+            background: var(--surface-2);
             padding: 56px;
             display: flex;
             flex-direction: column;
@@ -403,7 +636,7 @@
         }
 
         .sustainability-card {
-            background: #1a1a1a;
+            background: var(--surface);
             padding: 40px;
         }
 
@@ -417,6 +650,14 @@
         @media (max-width: 768px) {
             :root {
                 --page-pad: 24px;
+            }
+
+            .hero-content {
+                bottom: 28px;
+            }
+
+            .hero-headline {
+                font-size: 32px;
             }
 
             .hero {
@@ -451,6 +692,11 @@
 
             .studio-tile.top,
             .studio-tile.row {
+                aspect-ratio: 16 / 9;
+            }
+
+            .projects-card {
+                height: auto;
                 aspect-ratio: 16 / 9;
             }
 
@@ -535,16 +781,14 @@
         </div>
 
         <div class="nav-footer" aria-label="Social links">
-            <a href="#" class="nav-social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="nav-social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="nav-social" aria-label="Dribbble" title="Dribbble"><i class="bi bi-dribbble"></i></a>
-            <a href="#" class="nav-social" aria-label="Pinterest" title="Pinterest"><i class="bi bi-pinterest"></i></a>
-            <a href="#" class="nav-social" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
-            <a href="#" class="nav-social" aria-label="WeChat" title="WeChat"><i class="bi bi-wechat"></i></a>
+            <a href="https://www.instagram.com/" class="nav-social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.linkedin.com/" class="nav-social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.facebook.com/" class="nav-social" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.youtube.com/" class="nav-social" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
         </div>
 
         <div class="nav-legal">
-            <div><a href="#">Subscribe to Vavaki</a></div>
+            <div><a href="#contact">Start Your Project</a></div>
             <div><a href="#">Legal and policies</a></div>
         </div>
     </div>
@@ -554,11 +798,15 @@
         <div class="hero-bg hero-bg--a is-visible" aria-hidden="true"></div>
         <div class="hero-bg hero-bg--b" aria-hidden="true"></div>
         <div class="hero-content">
-            <div class="hero-label" id="heroLabel">News</div>
-            <div class="hero-title" id="heroTitle">Zayed National Museum in Abu Dhabi completes</div>
+            <div class="hero-headline">Designing the Future, Rooted in Africa</div>
+            <div class="hero-subheadline">Award-winning architects delivering iconic, sustainable, and culturally inspired spaces across Africa and the globe.</div>
+            <div class="hero-ctas">
+                <a class="hero-cta" href="#portfolio">View Our Work</a>
+                <a class="hero-cta" href="#contact">Start Your Project</a>
+            </div>
         </div>
         <div class="hero-scroll">
-            <button class="hero-scroll-btn" type="button" aria-label="Scroll to Studio" onclick="document.querySelector('#studio')?.scrollIntoView({behavior: 'smooth'});">
+            <button class="hero-scroll-btn" type="button" aria-label="Scroll to About" onclick="document.querySelector('#about')?.scrollIntoView({behavior: 'smooth'});">
                 <svg class="hero-scroll-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                     <path d="M12 2v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     <path d="M6 16.5 12 22.5l6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -569,77 +817,80 @@
     </section>
 
     <!-- Studio Section -->
-    <section class="studio-section" id="studio">
-        <h2 class="section-title reveal-on-scroll">Studio</h2>
+    <section class="studio-section" id="about">
+        <h2 class="section-title reveal-on-scroll">About</h2>
 
         <div class="studio-layout">
-            <div class="studio-tile top studio-span-8 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80" alt="About">
-                <div class="card-label">About</div>
-            </div>
+            <a class="studio-tile top studio-span-8 reveal-on-scroll" href="#about" aria-label="Learn more about Vavaki">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80" alt="About Vavaki">
+                <div class="card-label">Learn More About Us</div>
+            </a>
 
             <div class="studio-quote studio-span-4 reveal-on-scroll" aria-label="Studio quote">
-                <p class="quote-text">“We are a global studio for sustainable architecture, urbanism, engineering and design, founded by Norman Foster in 1967.”</p>
+                <p class="quote-text">At Vavaki, architecture is more than construction — it’s storytelling. Our designs honor culture, foster innovation, and prioritize sustainability.</p>
+                <p class="quote-text">We blend African heritage with global best practices to create spaces that inspire communities, empower users, and leave a lasting legacy.</p>
                 <p class="quote-author">Vavaki</p>
             </div>
 
-            <div class="studio-tile row studio-span-4 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80" alt="Life at Vavaki">
-                <div class="card-label">Life at Vavaki</div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll" aria-label="Visionary Design">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80" alt="Visionary design">
+                <div class="card-label">Visionary Design</div>
             </div>
-            <div class="studio-tile row studio-span-4 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80" alt="Vacancies">
-                <div class="card-label">Vacancies</div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll" aria-label="Sustainability">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80" alt="Sustainability">
+                <div class="card-label">Sustainability</div>
             </div>
-            <div class="studio-tile row studio-span-4 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80" alt="Equity, Diversity and Inclusion">
-                <div class="card-label">Equity, Diversity and Inclusion</div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll" aria-label="Collaboration">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80" alt="Collaboration">
+                <div class="card-label">Collaboration</div>
             </div>
 
-            <div class="studio-tile row studio-span-4 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80" alt="Corporate Social Responsibility">
-                <div class="card-label">Corporate Social Responsibility</div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll" aria-label="Global Reach">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80" alt="Global reach">
+                <div class="card-label">Global Reach</div>
             </div>
-            <div class="studio-tile row studio-span-8 reveal-on-scroll">
-                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" alt="Global studios">
-                <div class="card-label">Global studios</div>
-            </div>
+            <a class="studio-tile row studio-span-8 reveal-on-scroll" href="#portfolio" aria-label="View full portfolio">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" alt="Featured projects">
+                <div class="card-label">View Full Portfolio</div>
+            </a>
         </div>
     </section>
 
+    <div id="services" aria-hidden="true"></div>
+    <div id="portfolio" aria-hidden="true"></div>
+
     <!-- News Section -->
-    <section class="news-section">
-        <h2 class="section-title reveal-on-scroll">News</h2>
+    <section class="news-section" id="insights">
+        <h2 class="section-title reveal-on-scroll">Insights</h2>
         
         <div class="news-grid">
             <div class="news-featured reveal-on-scroll">
                 <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1000&q=80" alt="Latest news">
-                <div class="card-label">Latest news</div>
+                <div class="card-label">Sustainable Architecture in Africa: Trends &amp; Innovations</div>
             </div>
 
             <div class="newsletter reveal-on-scroll">
-                <h3>Stay up to date with the latest Vavaki projects and news.</h3>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Email address..." aria-label="Email address">
-                    <button type="submit">Subscribe</button>
-                </form>
+                <h3>Your Vision, Our Expertise</h3>
+                <p>Let’s collaborate on your next landmark project.</p>
+                <a class="newsletter-cta" href="#contact">Get in Touch</a>
             </div>
         </div>
 
-        <h3 class="news-subtitle reveal-on-scroll">Climate and Sustainable Design</h3>
+        <h3 class="news-subtitle reveal-on-scroll">Latest Insights Preview</h3>
 
         <div class="news-grid-secondary">
             <div class="news-featured secondary reveal-on-scroll">
                 <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1000&q=80" alt="Climate and Sustainable Design">
-                <div class="card-label">Climate and Sustainable Design</div>
+                <div class="card-label">Urban Planning for Inclusive Communities</div>
             </div>
 
             <div class="news-quote reveal-on-scroll">
-                <p>“Sustainability has been a central theme of our work for more than five decades. We work closely with our clients to develop bespoke design solutions that are optimised for their operations and the planet.”</p>
-                <p class="quote-author">Vavaki</p>
+                <p>Project Spotlight: The Serengeti Eco Lodge</p>
             </div>
         </div>
     </section>
+
+   
 
     <!-- Footer -->
     <footer>
@@ -648,27 +899,24 @@
 
             <div class="footer-actions">
                 <div class="footer-social" aria-label="Social links">
-                    <a href="#" class="social-icon" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="social-icon" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="social-icon" aria-label="Dribbble" title="Dribbble"><i class="bi bi-dribbble"></i></a>
-                    <a href="#" class="social-icon" aria-label="Pinterest" title="Pinterest"><i class="bi bi-pinterest"></i></a>
-                    <a href="#" class="social-icon" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
-                    <a href="#" class="social-icon" aria-label="WeChat" title="WeChat"><i class="bi bi-wechat"></i></a>
+                    <a href="https://www.instagram.com/" class="social-icon" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.linkedin.com/" class="social-icon" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="https://www.facebook.com/" class="social-icon" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.youtube.com/" class="social-icon" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
                 </div>
 
-                <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                    Back To Top <i class="bi bi-arrow-up"></i>
+                <button class="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <span class="back-to-top__text">Back To Top</span> <i class="bi bi-arrow-up" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
 
         <div class="footer-bottom-row reveal-on-scroll">
             <nav class="footer-nav" aria-label="Footer">
-                <a href="#projects">Projects</a>
-                <a href="#expertise">Expertise</a>
-                <a href="#studio">Studio</a>
-                <a href="#news">News</a>
-                <a href="#careers">Careers</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#insights">Insights</a>
                 <a href="#contact">Contact</a>
             </nav>
 
@@ -715,65 +963,56 @@
 
         const navItems = [
             {
-                key: 'expertise',
-                label: 'Expertise',
+                key: 'home',
+                label: 'Home',
+                href: '#',
                 imageSrc: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=2400&q=80'
             },
             {
-                key: 'projects',
-                label: 'Projects',
-                imageSrc: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=2400&q=80'
+                key: 'about',
+                label: 'About',
+                href: '#about',
+                imageSrc: 'https://images.unsplash.com/photo-1529421308261-31a3c7a9a0dd?w=2400&q=80'
             },
             {
-                key: 'studio',
-                label: 'Studio',
-                imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2400&q=80',
-                submenuTitle: 'Studio',
+                key: 'services',
+                label: 'Services',
+                href: '#services',
+                imageSrc: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=2400&q=80',
+                submenuTitle: 'Core Services',
                 submenu: [
-                    { label: 'About', href: '#studio' },
-                    { label: 'Corporate Social Responsibility', href: '#studio' },
-                    { label: 'London', href: '#studio' },
-                    { label: 'Abu Dhabi', href: '#studio' },
-                    { label: 'Bangkok', href: '#studio' },
-                    { label: 'Beijing', href: '#studio' },
-                    { label: 'Dubai', href: '#studio' },
-                    { label: 'Hangzhou', href: '#studio' },
-                    { label: 'Hong Kong', href: '#studio' },
-                    { label: 'Los Angeles', href: '#studio' },
-                    { label: 'Madrid', href: '#studio' },
-                    { label: 'New York', href: '#studio' },
-                    { label: 'Riyadh', href: '#studio' },
-                    { label: 'San Francisco', href: '#studio' },
-                    { label: 'Singapore', href: '#studio' },
-                    { label: 'Shanghai', href: '#studio' },
-                    { label: 'Shenzhen', href: '#studio' },
-                    { label: 'Sydney', href: '#studio' },
-                    { label: 'Warsaw', href: '#studio' }
+                    { label: 'Architecture & Design', href: '#architecture-design' },
+                    { label: 'Urban Planning & Masterplanning', href: '#urban-planning-masterplanning' },
+                    { label: 'Interior Design & Space Planning', href: '#interior-design-space-planning' },
+                    { label: 'Project & Construction Management', href: '#project-construction-management' },
+                    { label: 'Sustainability Consulting', href: '#sustainability-consulting' },
+                    { label: 'Research & Innovation', href: '#research-innovation' }
                 ]
             },
             {
-                key: 'people',
-                label: 'People',
-                imageSrc: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=2400&q=80'
-            },
-            {
-                key: 'news',
-                label: 'News',
-                imageSrc: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=2400&q=80'
+                key: 'portfolio',
+                label: 'Portfolio',
+                href: '#portfolio',
+                imageSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2400&q=80',
+                submenuTitle: 'Categories',
+                submenu: [
+                    { label: 'Commercial & Corporate', href: '#commercial-corporate' },
+                    { label: 'Residential', href: '#residential' },
+                    { label: 'Hospitality & Leisure', href: '#hospitality-leisure' },
+                    { label: 'Public & Cultural', href: '#public-cultural' },
+                    { label: 'Urban & Masterplans', href: '#urban-masterplans' }
+                ]
             },
             {
                 key: 'insights',
                 label: 'Insights',
+                href: '#insights',
                 imageSrc: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=2400&q=80'
-            },
-            {
-                key: 'careers',
-                label: 'Careers',
-                imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2400&q=80'
             },
             {
                 key: 'contact',
                 label: 'Contact',
+                href: '#contact',
                 imageSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2400&q=80'
             }
         ];
@@ -841,7 +1080,20 @@
 
                 li.addEventListener('mouseenter', () => setActiveNav(item.key));
                 li.addEventListener('focus', () => setActiveNav(item.key));
-                li.addEventListener('click', () => setActiveNav(item.key));
+                li.addEventListener('click', () => {
+                    setActiveNav(item.key);
+                    if (!item.href) return;
+                    closeMenu();
+
+                    if (item.href === '#') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return;
+                    }
+
+                    const target = document.querySelector(item.href);
+                    if (!target) return;
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
 
                 navList.appendChild(li);
             });
@@ -869,39 +1121,27 @@
         const heroSlides = [
             {
                 imageSrc: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=2400&q=80',
-                label: 'News',
-                title: 'Zayed National Museum in Abu Dhabi completes',
                 durationMs: 9000
             },
             {
                 imageSrc: 'https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?w=2400&q=80',
-                label: 'News',
-                title: 'Vavaki reveals new cultural landmark',
                 durationMs: 9000
             },
             {
                 imageSrc: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=2400&q=80',
-                label: 'News',
-                title: 'A sustainable campus designed for the future',
                 durationMs: 9000
             },
             {
                 imageSrc: 'https://images.unsplash.com/photo-1529421308261-31a3c7a9a0dd?w=2400&q=80',
-                label: 'News',
-                title: 'A public realm shaped by light and landscape',
                 durationMs: 9000
             },
             {
                 imageSrc: 'https://images.unsplash.com/photo-1444090542259-0af8fa96557e?w=2400&q=80',
-                label: 'News',
-                title: 'Engineering and craft at architectural scale',
                 durationMs: 9000
             }
         ];
 
         const heroBgEls = Array.from(document.querySelectorAll('.hero-bg'));
-        const heroLabel = document.getElementById('heroLabel');
-        const heroTitle = document.getElementById('heroTitle');
         const heroDots = document.getElementById('heroDots');
 
         let heroIndex = 0;
@@ -967,9 +1207,6 @@
         function loadHeroSlide(nextIndex) {
             heroIndex = ((nextIndex % heroSlides.length) + heroSlides.length) % heroSlides.length;
             const slide = heroSlides[heroIndex];
-
-            if (heroLabel) heroLabel.textContent = slide.label;
-            if (heroTitle) heroTitle.textContent = slide.title;
             setHeroActiveDot(heroIndex);
 
             setHeroBackground(slide.imageSrc, !heroDidInitBg);
