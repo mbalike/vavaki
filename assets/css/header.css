@@ -1,0 +1,44 @@
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px var(--page-pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--hero-topbar-bg);
+    transition: transform 220ms ease;
+}
+
+header.is-hidden {
+    transform: translateY(-110%);
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.header-icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 20px;
+}
+
+.icon-btn--search {
+    font-size: 17px;
+    padding: 5px;
+}

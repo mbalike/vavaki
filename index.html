@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foster + Partners</title>
+    <script>
+        document.documentElement.classList.add('js');
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/navigation.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <style>
+        :root {
+            --page-pad: 48px;
+            --hero-image: url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=2400&q=80');
+            --hero-topbar-bg: rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-image: var(--hero-image);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 900ms ease;
+            will-change: opacity;
+            z-index: 0;
+        }
+
+        .hero-bg.is-visible {
+            opacity: 1;
+        }
+
+        .hero-bg--a {
+            background-image: var(--hero-image);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+                linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 40px;
+            left: var(--page-pad);
+            z-index: 10;
+        }
+
+        .hero-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 400;
+            max-width: 540px;
+            line-height: 1.25;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            right: var(--page-pad);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .hero-scroll-btn {
+            width: 44px;
+            height: 88px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
+        .hero-scroll-icon {
+            width: 18px;
+            height: 36px;
+            display: block;
+        }
+
+        .hero-scroll-btn:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.8);
+            outline-offset: 4px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .dot.active {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            position: relative;
+        }
+
+        .dot.active::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(#fff var(--p, 0turn), rgba(255, 255, 255, 0.25) 0);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(50% - 1px), #000 calc(50% - 1px));
+            mask: radial-gradient(farthest-side, transparent calc(50% - 1px), #000 calc(50% - 1px));
+        }
+
+        .dot.active::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        /* Studio Section */
+        .studio-section {
+            padding: 80px var(--page-pad);
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .studio-layout {
+            --studio-gap: 20px;
+            --studio-row-h: 260px;
+            --studio-top-row-h: 320px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--studio-gap);
+        }
+
+        .studio-tile {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .studio-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .studio-tile::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 55%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+            pointer-events: none;
+        }
+
+        .studio-tile:hover img {
+            transform: scale(1.05);
+        }
+
+        .studio-tile.top {
+            height: var(--studio-top-row-h);
+        }
+
+        .studio-tile.row {
+            height: var(--studio-row-h);
+        }
+
+        .studio-span-8 {
+            grid-column: span 8;
+        }
+
+        .studio-span-4 {
+            grid-column: span 4;
+        }
+
+        .card-label {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .studio-quote {
+            background: #2a2a2a;
+            padding: 56px;
+            height: var(--studio-top-row-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .quote-text {
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 0;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 80px var(--page-pad);
+            --news-gap: 40px;
+            --news-fr-sum: 3.1;
+            --news-inner-w: calc(100vw - (2 * var(--page-pad)));
+            --news-right-w: calc((var(--news-inner-w) - var(--news-gap)) / var(--news-fr-sum));
+            --news-row-h: calc(var(--news-right-w) * 7 / 16);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2.1fr 1fr;
+            gap: var(--news-gap);
+            align-items: stretch;
+        }
+
+        .news-featured {
+            position: relative;
+            height: var(--news-row-h);
+            overflow: hidden;
+        }
+
+        .news-featured img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .newsletter {
+            background: #2a2a2a;
+            padding: 48px;
+            height: var(--news-row-h);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 26px;
+        }
+
+        .newsletter h3 {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.25;
+            max-width: 360px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .newsletter input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 14px 18px;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 999px;
+            outline: none;
+        }
+
+        .newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .newsletter input:focus-visible {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .newsletter button {
+            background: rgba(255, 255, 255, 0.10);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 14px 18px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 999px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .newsletter button:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .news-subtitle {
+            margin-top: 64px;
+            margin-bottom: 18px;
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .news-grid-secondary {
+            display: grid;
+            grid-template-columns: 2.1fr 1fr;
+            gap: var(--news-gap);
+            align-items: stretch;
+        }
+
+        .news-featured.secondary {
+            height: var(--news-row-h);
+        }
+
+        .news-quote {
+            height: var(--news-row-h);
+            background: #2a2a2a;
+            padding: 56px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .news-quote p {
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 400;
+            opacity: 0.95;
+            max-width: 520px;
+        }
+
+        .news-quote .quote-author {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        .sustainability-card {
+            background: #1a1a1a;
+            padding: 40px;
+        }
+
+        .sustainability-card p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --page-pad: 24px;
+            }
+
+            .studio-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .studio-span-8,
+            .studio-span-4 {
+                grid-column: auto;
+            }
+
+            .studio-tile.top,
+            .studio-quote {
+                height: auto;
+            }
+
+            .studio-tile.top,
+            .studio-tile.row {
+                aspect-ratio: 16 / 9;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid-secondary {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter {
+                height: auto;
+                padding: 36px;
+            }
+
+            .news-featured.secondary,
+            .news-quote {
+                height: auto;
+            }
+
+            .news-featured {
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+
+            .news-featured.secondary {
+                aspect-ratio: 16 / 9;
+            }
+
+            .news-subtitle {
+                font-size: 26px;
+                margin-top: 44px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">Foster + Partners</div>
+        <div class="header-icons">
+            <button class="icon-btn icon-btn--search" aria-label="Search">
+                <i class="bi bi-search" aria-hidden="true"></i>
+            </button>
+            <button class="icon-btn" aria-label="Menu" id="menuOpenBtn" aria-haspopup="dialog" aria-controls="navOverlay" aria-expanded="false">
+                <i class="bi bi-list" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="Site menu">
+        <div class="nav-top-actions">
+            <button class="nav-icon-btn" type="button" aria-label="Search">
+                <i class="bi bi-search" aria-hidden="true"></i>
+            </button>
+            <button class="nav-icon-btn" type="button" aria-label="Close menu" id="menuCloseBtn">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="nav-shell">
+            <div class="nav-image" id="navPreview" aria-hidden="true"></div>
+
+            <div class="nav-panel nav-panel--center">
+                <div class="nav-heading">Menu</div>
+                <ul class="nav-list" id="navList"></ul>
+            </div>
+
+            <div class="nav-panel nav-panel--right">
+                <div class="nav-subtitle"><span id="navSubHeading">&nbsp;</span></div>
+                <ul class="nav-sublist" id="navSubList"></ul>
+            </div>
+        </div>
+
+        <div class="nav-footer" aria-label="Social links">
+            <a href="#" class="nav-social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="nav-social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="nav-social" aria-label="Dribbble" title="Dribbble"><i class="bi bi-dribbble"></i></a>
+            <a href="#" class="nav-social" aria-label="Pinterest" title="Pinterest"><i class="bi bi-pinterest"></i></a>
+            <a href="#" class="nav-social" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="nav-social" aria-label="WeChat" title="WeChat"><i class="bi bi-wechat"></i></a>
+        </div>
+
+        <div class="nav-legal">
+            <div><a href="#">Subscribe to Foster + Partners</a></div>
+            <div><a href="#">Legal and policies</a></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg hero-bg--a is-visible" aria-hidden="true"></div>
+        <div class="hero-bg hero-bg--b" aria-hidden="true"></div>
+        <div class="hero-content">
+            <div class="hero-label" id="heroLabel">News</div>
+            <div class="hero-title" id="heroTitle">Zayed National Museum in Abu Dhabi completes</div>
+        </div>
+        <div class="hero-scroll">
+            <button class="hero-scroll-btn" type="button" aria-label="Scroll to Studio" onclick="document.querySelector('#studio')?.scrollIntoView({behavior: 'smooth'});">
+                <svg class="hero-scroll-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M12 2v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 16.5 12 22.5l6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="carousel-dots" id="heroDots" aria-hidden="true"></div>
+    </section>
+
+    <!-- Studio Section -->
+    <section class="studio-section" id="studio">
+        <h2 class="section-title reveal-on-scroll">Studio</h2>
+
+        <div class="studio-layout">
+            <div class="studio-tile top studio-span-8 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80" alt="About">
+                <div class="card-label">About</div>
+            </div>
+
+            <div class="studio-quote studio-span-4 reveal-on-scroll" aria-label="Studio quote">
+                <p class="quote-text">“We are a global studio for sustainable architecture, urbanism, engineering and design, founded by Norman Foster in 1967.”</p>
+                <p class="quote-author">Foster + Partners</p>
+            </div>
+
+            <div class="studio-tile row studio-span-4 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80" alt="Life at Foster + Partners">
+                <div class="card-label">Life at Foster + Partners</div>
+            </div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80" alt="Vacancies">
+                <div class="card-label">Vacancies</div>
+            </div>
+            <div class="studio-tile row studio-span-4 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80" alt="Equity, Diversity and Inclusion">
+                <div class="card-label">Equity, Diversity and Inclusion</div>
+            </div>
+
+            <div class="studio-tile row studio-span-4 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80" alt="Corporate Social Responsibility">
+                <div class="card-label">Corporate Social Responsibility</div>
+            </div>
+            <div class="studio-tile row studio-span-8 reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" alt="Global studios">
+                <div class="card-label">Global studios</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <h2 class="section-title reveal-on-scroll">News</h2>
+        
+        <div class="news-grid">
+            <div class="news-featured reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1000&q=80" alt="Latest news">
+                <div class="card-label">Latest news</div>
+            </div>
+
+            <div class="newsletter reveal-on-scroll">
+                <h3>Stay up to date with the latest Foster + Partners projects and news.</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email address..." aria-label="Email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <h3 class="news-subtitle reveal-on-scroll">Climate and Sustainable Design</h3>
+
+        <div class="news-grid-secondary">
+            <div class="news-featured secondary reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1000&q=80" alt="Climate and Sustainable Design">
+                <div class="card-label">Climate and Sustainable Design</div>
+            </div>
+
+            <div class="news-quote reveal-on-scroll">
+                <p>“Sustainability has been a central theme of our work for more than five decades. We work closely with our clients to develop bespoke design solutions that are optimised for their operations and the planet.”</p>
+                <p class="quote-author">Foster + Partners</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top reveal-on-scroll">
+            <div class="logo">Foster + Partners</div>
+
+            <div class="footer-actions">
+                <div class="footer-social" aria-label="Social links">
+                    <a href="#" class="social-icon" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-icon" aria-label="Dribbble" title="Dribbble"><i class="bi bi-dribbble"></i></a>
+                    <a href="#" class="social-icon" aria-label="Pinterest" title="Pinterest"><i class="bi bi-pinterest"></i></a>
+                    <a href="#" class="social-icon" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="social-icon" aria-label="WeChat" title="WeChat"><i class="bi bi-wechat"></i></a>
+                </div>
+
+                <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    Back To Top <i class="bi bi-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom-row reveal-on-scroll">
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="#projects">Projects</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#studio">Studio</a>
+                <a href="#news">News</a>
+                <a href="#careers">Careers</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="footer-legal">Legal and policies&nbsp;&nbsp;© 2025 Foster + Partners. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const headerEl = document.querySelector('header');
+        let lastScrollY = window.scrollY;
+
+        function onScroll() {
+            if (!headerEl) return;
+
+            const y = window.scrollY;
+            const scrollingDown = y > lastScrollY;
+            const docH = document.documentElement.scrollHeight;
+            const winH = window.innerHeight;
+            const nearBottom = y + winH >= docH - 8;
+
+            if ((scrollingDown && y > 80) || nearBottom) {
+                headerEl.classList.add('is-hidden');
+            } else {
+                headerEl.classList.remove('is-hidden');
+            }
+
+            if (y <= 10) {
+                headerEl.classList.remove('is-hidden');
+            }
+
+            lastScrollY = y;
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        const menuOpenBtn = document.getElementById('menuOpenBtn');
+        const navOverlay = document.getElementById('navOverlay');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const navList = document.getElementById('navList');
+        const navSubList = document.getElementById('navSubList');
+        const navSubHeading = document.getElementById('navSubHeading');
+        const navPreview = document.getElementById('navPreview');
+
+        const navItems = [
+            {
+                key: 'expertise',
+                label: 'Expertise',
+                imageSrc: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=2400&q=80'
+            },
+            {
+                key: 'projects',
+                label: 'Projects',
+                imageSrc: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=2400&q=80'
+            },
+            {
+                key: 'studio',
+                label: 'Studio',
+                imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2400&q=80',
+                submenuTitle: 'Studio',
+                submenu: [
+                    { label: 'About', href: '#studio' },
+                    { label: 'Corporate Social Responsibility', href: '#studio' },
+                    { label: 'London', href: '#studio' },
+                    { label: 'Abu Dhabi', href: '#studio' },
+                    { label: 'Bangkok', href: '#studio' },
+                    { label: 'Beijing', href: '#studio' },
+                    { label: 'Dubai', href: '#studio' },
+                    { label: 'Hangzhou', href: '#studio' },
+                    { label: 'Hong Kong', href: '#studio' },
+                    { label: 'Los Angeles', href: '#studio' },
+                    { label: 'Madrid', href: '#studio' },
+                    { label: 'New York', href: '#studio' },
+                    { label: 'Riyadh', href: '#studio' },
+                    { label: 'San Francisco', href: '#studio' },
+                    { label: 'Singapore', href: '#studio' },
+                    { label: 'Shanghai', href: '#studio' },
+                    { label: 'Shenzhen', href: '#studio' },
+                    { label: 'Sydney', href: '#studio' },
+                    { label: 'Warsaw', href: '#studio' }
+                ]
+            },
+            {
+                key: 'people',
+                label: 'People',
+                imageSrc: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=2400&q=80'
+            },
+            {
+                key: 'news',
+                label: 'News',
+                imageSrc: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=2400&q=80'
+            },
+            {
+                key: 'insights',
+                label: 'Insights',
+                imageSrc: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=2400&q=80'
+            },
+            {
+                key: 'careers',
+                label: 'Careers',
+                imageSrc: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2400&q=80'
+            },
+            {
+                key: 'contact',
+                label: 'Contact',
+                imageSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2400&q=80'
+            }
+        ];
+
+        let activeNavKey = '';
+
+        function setNavPreview(imageSrc) {
+            if (!navPreview) return;
+            navPreview.style.backgroundImage = imageSrc ? `url('${imageSrc}')` : '';
+        }
+
+        function setNavSubmenu(item) {
+            if (!navSubList || !navSubHeading) return;
+            navSubList.innerHTML = '';
+            navSubHeading.textContent = item?.submenuTitle ? item.submenuTitle : '';
+
+            const entries = item?.submenu ?? [];
+            entries.forEach((entry) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.className = 'nav-subitem';
+                a.href = entry.href || '#';
+                a.innerHTML = `<i class="bi bi-arrow-up-right" aria-hidden="true"></i><span>${entry.label}</span>`;
+                li.appendChild(a);
+                navSubList.appendChild(li);
+            });
+        }
+
+        function setActiveNav(key) {
+            activeNavKey = key;
+            const item = navItems.find((x) => x.key === key) || navItems[0];
+            setNavPreview(item?.imageSrc);
+            setNavSubmenu(item?.submenu ? item : null);
+
+            if (navList) {
+                Array.from(navList.querySelectorAll('.nav-item')).forEach((el) => {
+                    el.classList.toggle('is-active', el.getAttribute('data-key') === item.key);
+                });
+            }
+        }
+
+        function openMenu() {
+            if (!navOverlay) return;
+            navOverlay.classList.add('is-open');
+            document.body.classList.add('nav-open');
+            if (menuOpenBtn) menuOpenBtn.setAttribute('aria-expanded', 'true');
+            setActiveNav(activeNavKey || navItems[0]?.key);
+        }
+
+        function closeMenu() {
+            if (!navOverlay) return;
+            navOverlay.classList.remove('is-open');
+            document.body.classList.remove('nav-open');
+            if (menuOpenBtn) menuOpenBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        function buildNav() {
+            if (!navList) return;
+            navList.innerHTML = '';
+            navItems.forEach((item) => {
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                li.textContent = item.label;
+                li.setAttribute('data-key', item.key);
+
+                li.addEventListener('mouseenter', () => setActiveNav(item.key));
+                li.addEventListener('focus', () => setActiveNav(item.key));
+                li.addEventListener('click', () => setActiveNav(item.key));
+
+                navList.appendChild(li);
+            });
+
+            activeNavKey = navItems[0]?.key || '';
+            setActiveNav(activeNavKey);
+        }
+
+        buildNav();
+
+        if (menuOpenBtn) {
+            menuOpenBtn.addEventListener('click', openMenu);
+        }
+
+        if (menuCloseBtn) {
+            menuCloseBtn.addEventListener('click', closeMenu);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navOverlay?.classList.contains('is-open')) {
+                closeMenu();
+            }
+        });
+
+        const heroSlides = [
+            {
+                imageSrc: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=2400&q=80',
+                label: 'News',
+                title: 'Zayed National Museum in Abu Dhabi completes',
+                durationMs: 9000
+            },
+            {
+                imageSrc: 'https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?w=2400&q=80',
+                label: 'News',
+                title: 'Foster + Partners reveals new cultural landmark',
+                durationMs: 9000
+            },
+            {
+                imageSrc: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=2400&q=80',
+                label: 'News',
+                title: 'A sustainable campus designed for the future',
+                durationMs: 9000
+            },
+            {
+                imageSrc: 'https://images.unsplash.com/photo-1529421308261-31a3c7a9a0dd?w=2400&q=80',
+                label: 'News',
+                title: 'A public realm shaped by light and landscape',
+                durationMs: 9000
+            },
+            {
+                imageSrc: 'https://images.unsplash.com/photo-1444090542259-0af8fa96557e?w=2400&q=80',
+                label: 'News',
+                title: 'Engineering and craft at architectural scale',
+                durationMs: 9000
+            }
+        ];
+
+        const heroBgEls = Array.from(document.querySelectorAll('.hero-bg'));
+        const heroLabel = document.getElementById('heroLabel');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroDots = document.getElementById('heroDots');
+
+        let heroIndex = 0;
+        let heroDotEls = [];
+        let heroRaf = 0;
+        let heroStartTs = 0;
+        let heroActiveBg = 0;
+        let heroDidInitBg = false;
+
+        function preloadHeroImage(idx) {
+            const slide = heroSlides[idx];
+            if (!slide?.imageSrc) return;
+            const img = new Image();
+            img.src = slide.imageSrc;
+        }
+
+        function setHeroBackground(imageSrc, immediate = false) {
+            if (!heroBgEls.length || !imageSrc) return;
+
+            if (!heroDidInitBg || immediate) {
+                heroBgEls[0].style.backgroundImage = `url('${imageSrc}')`;
+                heroBgEls[0].classList.add('is-visible');
+                if (heroBgEls[1]) heroBgEls[1].classList.remove('is-visible');
+                heroActiveBg = 0;
+                heroDidInitBg = true;
+                return;
+            }
+
+            const nextBg = heroActiveBg === 0 ? 1 : 0;
+            const nextEl = heroBgEls[nextBg];
+            const currEl = heroBgEls[heroActiveBg];
+            if (!nextEl || !currEl) return;
+
+            nextEl.classList.remove('is-visible');
+            nextEl.style.backgroundImage = `url('${imageSrc}')`;
+
+            requestAnimationFrame(() => {
+                nextEl.classList.add('is-visible');
+                currEl.classList.remove('is-visible');
+                heroActiveBg = nextBg;
+            });
+        }
+
+        function buildHeroDots() {
+            if (!heroDots) return;
+            heroDots.innerHTML = '';
+            heroDotEls = heroSlides.map((_, idx) => {
+                const el = document.createElement('div');
+                el.className = idx === 0 ? 'dot active' : 'dot';
+                el.style.setProperty('--p', '0turn');
+                heroDots.appendChild(el);
+                return el;
+            });
+        }
+
+        function setHeroActiveDot(nextIndex) {
+            heroDotEls.forEach((el, idx) => {
+                el.classList.toggle('active', idx === nextIndex);
+                el.style.setProperty('--p', '0turn');
+            });
+        }
+
+        function loadHeroSlide(nextIndex) {
+            heroIndex = ((nextIndex % heroSlides.length) + heroSlides.length) % heroSlides.length;
+            const slide = heroSlides[heroIndex];
+
+            if (heroLabel) heroLabel.textContent = slide.label;
+            if (heroTitle) heroTitle.textContent = slide.title;
+            setHeroActiveDot(heroIndex);
+
+            setHeroBackground(slide.imageSrc, !heroDidInitBg);
+            preloadHeroImage((heroIndex + 1) % heroSlides.length);
+
+            heroStartTs = performance.now();
+        }
+
+        function heroTick(now) {
+            const slide = heroSlides[heroIndex];
+            const durationMs = Math.max(1, slide?.durationMs ?? 9000);
+            const elapsed = Math.max(0, now - heroStartTs);
+            const p = Math.max(0, Math.min(1, elapsed / durationMs));
+
+            const activeDot = heroDotEls[heroIndex];
+            if (activeDot) {
+                activeDot.style.setProperty('--p', `${p}turn`);
+            }
+
+            if (p >= 1) {
+                loadHeroSlide(heroIndex + 1);
+            }
+
+            heroRaf = requestAnimationFrame(heroTick);
+        }
+
+        buildHeroDots();
+        loadHeroSlide(0);
+        heroRaf = requestAnimationFrame(heroTick);
+
+        const revealEls = Array.from(document.querySelectorAll('.reveal-on-scroll'));
+        revealEls.forEach((el, idx) => {
+            const stepMs = 70;
+            const maxSteps = 10;
+            const delay = Math.min(idx, maxSteps) * stepMs;
+            el.style.setProperty('--reveal-delay', `${delay}ms`);
+        });
+
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('is-revealed');
+                        io.unobserve(entry.target);
+                    });
+                },
+                { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+            );
+
+            revealEls.forEach((el) => io.observe(el));
+        } else {
+            revealEls.forEach((el) => el.classList.add('is-revealed'));
+        }
+    </script>
+</body>
+</html>
